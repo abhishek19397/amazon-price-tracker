@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import smtplib
+import time
 
 def checkPrice() :
    URL = 'https://www.amazon.in/Tissot-T0674171105100-Wrist-Watch-Men/dp/B0051DA94I/ref=sr_1_4_sspa?keywords=wrist+watch&qid=1562519463&rnid=3576079031&s=watch&sr=1-4-spons&psc=1'
@@ -45,7 +46,9 @@ def send_mail():
 
 
 
-checkPrice()
+while(True):
+   checkPrice()
+   time.sleep(60*60*10)
 
 
 
