@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import smtplib
 
 def checkPrice() :
    URL = 'https://www.amazon.in/Tissot-T0674171105100-Wrist-Watch-Men/dp/B0051DA94I/ref=sr_1_4_sspa?keywords=wrist+watch&qid=1562519463&rnid=3576079031&s=watch&sr=1-4-spons&psc=1'
@@ -14,9 +15,38 @@ def checkPrice() :
 
    converted_price = price[2:4]
 
+   if(converted_price < 22):
+      send_mail()
+ 
    print(converted_price)
+   print(title.strip())
+
+
+def send_mail():
+   server = smtplib.SMTP('smtp.gmail.com',587)
+   server.ehlo()
+   server.starttls()
+   server.ehlo()
+
+    server.login('your@email.com','yourpassword')
+
+    subject='Price fell down!'
+    body = 'check the price at https://www.amazon.in/Tissot-T0674171105100-Wrist-Watch-Men/dp/B0051DA94I/ref=sr_1_4_sspa?keywords=wrist+watch&qid=1562519463&rnid=3576079031&s=watch&sr=1-4-spons&psc=1 '
+    msg = f"Subject: {subject}\n\n{body}"
+
+    server.sendmail(
+       'your@email.com',
+       'another@email.com',
+       msg
+    )   
+
+    print('Email has been sent!')
+    server.quit()
+
+
 
 checkPrice()
+
 
 
 
